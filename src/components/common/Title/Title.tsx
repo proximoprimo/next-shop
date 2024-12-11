@@ -18,8 +18,8 @@ const Title = ({
     <div
       className={cn(
         {
-          'text-2xl font-medium': size === 'lg',
-          'text-[#f2408b]': important,
+          'text-2xl font-bold': size === 'lg',
+          'text-important': important,
         },
         className
       )}
