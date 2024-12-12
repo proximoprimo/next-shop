@@ -1,11 +1,10 @@
 import { cn } from '@utils/cn'
-import { ClassValue } from 'clsx'
 import { PropsWithChildren } from 'react'
 
 interface TitleProps extends PropsWithChildren {
   size?: 'xs' | 'md' | 'lg'
   important?: boolean
-  className?: ClassValue
+  className?: string
 }
 
 const Title = ({
