@@ -3,9 +3,9 @@ import {
   PiBowlFoodLight,
   PiDeviceMobileLight,
   PiHouseLineLight,
-  PiTShirtLight
+  PiTShirtLight,
 } from 'react-icons/pi'
-import Category from './Category'
+import CategoryWithIcon from './CategoryWithIcon'
 
 export type Category = {
   text: string
@@ -40,7 +40,7 @@ const CategoryList = () => {
   return (
     <div className='grid grid-cols-2 grid-rows-2 gap-4'>
       {CATEGORIES.map((category, i) => (
-        <Category key={i} category={category} />
+        <CategoryWithIcon key={i} category={category} />
       ))}
     </div>
   )

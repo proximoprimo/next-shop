@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${notoSans.variable} antialiased`}>
         <Header />
-        <main className='px-4 py-16 pb-20 max-w-screen-sm mx-auto min-h-screen'>{children}</main>
+        <main className='px-4 pt-[72px] pb-20 max-w-screen-sm mx-auto min-h-screen'>{children}</main>
         <MobileMenu />
       </body>
     </html>

@@ -5,7 +5,7 @@ interface CategoryProps {
   category: CategoryType
 }
 
-const Category = ({ category }: CategoryProps) => {
+const CategoryWithIcon = ({ category }: CategoryProps) => {
   const Icon = category.icon
 
   return (
@@ -19,4 +19,4 @@ const Category = ({ category }: CategoryProps) => {
   )
 }
 
-export default Category
+export default CategoryWithIcon

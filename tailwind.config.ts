@@ -13,6 +13,10 @@ export default {
         foreground: 'var(--foreground)',
         important: '#f2408b',
       },
+      gridTemplateColumns: {
+        'fill-100': 'repeat(auto-fill, minmax(100px, 1fr))',
+        'fit-100': 'repeat(auto-fit, minmax(100px, 1fr))',
+      },
       fontFamily: {
         'noto-sans': 'var(--noto-sans)',
       },
