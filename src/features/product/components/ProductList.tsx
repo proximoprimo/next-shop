@@ -14,7 +14,7 @@ const ProductList = ({ title }: ProductListProps) => {
       <Title size='lg' important={true} className='py-2'>
         {title}
       </Title>
-
+      
       <Slider>
         <SwiperSlide>
           <ProductCard />
@@ -33,6 +33,11 @@ const ProductList = ({ title }: ProductListProps) => {
         </SwiperSlide>
         <SwiperSlide>
           <ProductCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='flex h-full w-full items-center justify-center rounded bg-foreground text-center text-2xl font-bold text-white'>
+            Смотреть больше
+          </div>
         </SwiperSlide>
       </Slider>
     </div>

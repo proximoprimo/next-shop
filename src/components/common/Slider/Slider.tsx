@@ -1,13 +1,19 @@
 'use client'
+import { cn } from '@/utils/cn'
 import { PropsWithChildren } from 'react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper } from 'swiper/react'
 
-const Slider = ({ children }: PropsWithChildren) => {
+interface SliderProps extends PropsWithChildren {
+  className?: string
+  swiperOptions?: React.ComponentProps<typeof Swiper>
+}
+
+const Slider = ({ children, className, swiperOptions }: SliderProps) => {
   return (
-    <div className='relative mx-2'>
+    <div className={cn('relative mx-2', className)}>
       <Swiper
         wrapperClass='w-full h-full'
         slidesPerView={'auto'}
@@ -17,13 +23,9 @@ const Slider = ({ children }: PropsWithChildren) => {
         spaceBetween={15}
         centeredSlides={true}
         initialSlide={2}
+        {...swiperOptions}
       >
         {children}
-        <SwiperSlide>
-          <div className='flex h-full w-full items-center justify-center rounded bg-foreground text-center text-2xl font-bold text-white'>
-            Смотреть больше
-          </div>
-        </SwiperSlide>
       </Swiper>
     </div>
   )

@@ -11,7 +11,8 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        important: '#f2408b',
+        'foregorund-dark': 'var(--foreground-dark)',
+        important: 'var(--important)',
       },
       gridTemplateColumns: {
         'fill-100': 'repeat(auto-fill, minmax(100px, 1fr))',

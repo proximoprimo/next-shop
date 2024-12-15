@@ -1,20 +1,20 @@
 'use client'
-import StyledLink from '@/components/common/StyledLink'
 import { cn } from '@/utils/cn'
 import { useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
+import SignInButton from './SignInButton'
 
 const HeaderSearch = () => {
   const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
 
   return (
-    <div className='fixed left-1/2 top-4 z-20 w-11/12 -translate-x-1/2 grid grid-cols-[1fr,auto] gap-2'>
+    <div className='fixed left-1/2 top-4 z-20 grid w-11/12 -translate-x-1/2 grid-cols-[1fr,auto] gap-2'>
       <div
         className={cn(
-          'grid grid-cols-[auto,1fr] items-center rounded-xl border-2 border-foreground bg-white p-1 text-lg',
+          'grid grid-cols-[auto,1fr] items-center rounded-xl border-2 border-foreground bg-white p-1 text-lg transition',
           {
-            'border-[#000dff]': isFocused,
+            'border-blue-600': isFocused,
           }
         )}
       >
@@ -29,7 +29,7 @@ const HeaderSearch = () => {
           })}
         />
       </div>
-      <StyledLink href='/auth/login' className='flex justify-center items-center px-3 font-medium'>Войти</StyledLink>
+      <SignInButton />
     </div>
   )
 }
