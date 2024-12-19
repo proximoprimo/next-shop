@@ -17,6 +17,8 @@ export default {
       gridTemplateColumns: {
         'fill-100': 'repeat(auto-fill, minmax(100px, 1fr))',
         'fit-100': 'repeat(auto-fit, minmax(100px, 1fr))',
+        'fill-150': 'repeat(auto-fill, minmax(150px, 1fr))',
+        'fit-150': 'repeat(auto-fit, minmax(150px, 1fr))',
       },
       fontFamily: {
         'noto-sans': 'var(--noto-sans)',

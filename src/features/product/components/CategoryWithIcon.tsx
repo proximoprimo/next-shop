@@ -10,8 +10,8 @@ const CategoryWithIcon = ({ category }: CategoryProps) => {
 
   return (
     <Link
-      className='bg-important flex aspect-[9/12] flex-col items-center justify-center rounded text-white shadow'
-      href={category.href}
+    className='flex aspect-[9/12] flex-col items-center justify-center rounded bg-important p-2 text-center text-white shadow'
+    href={category.href}
     >
       <Icon className='text-4xl' />
       <span className='text-xl'>{category.text}</span>

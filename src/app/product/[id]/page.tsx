@@ -3,6 +3,7 @@ import ProductImageSlider from './components/ProductImageSlider'
 import Button from '@/components/common/Button'
 import { PiStarFill } from 'react-icons/pi'
 import ProductReviewSlider from './components/ProductReviewSlider'
+import AddToFavorite from '@/features/product/components/AddToFavorite'
 
 const SingleProductPage = () => {
   return (
@@ -18,7 +19,10 @@ const SingleProductPage = () => {
           <div className='h-1 w-1 rounded-full bg-black'></div>
           <div>20 000 отзывов</div>
         </div>
-        <Button className='py-2'>Добавить в корзину</Button>
+        <div className='grid grid-cols-[1fr,max-content] gap-4 w-full'>
+          <Button className='py-2'>Добавить в корзину</Button>
+          <AddToFavorite />
+        </div>
       </div>
       <div className='mt-4 rounded-md border-2 border-foreground p-4'>
         <Title size='sm'>Описание</Title>
@@ -39,7 +43,9 @@ const SingleProductPage = () => {
         </div>
       </div>
       <div className='mt-4'>
-        <Title size='sm' className='mb-4'>Отзывы</Title>
+        <Title size='sm' className='mb-4'>
+          Отзывы
+        </Title>
 
         <ProductReviewSlider />
       </div>

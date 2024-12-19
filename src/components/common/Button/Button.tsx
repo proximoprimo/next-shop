@@ -12,6 +12,7 @@ const Button = ({ children, className, ...btnProps }: Button) => {
     <button
       className={cn(
         'w-full rounded bg-foreground p-1 text-sm font-medium text-white',
+        { 'opacity-50': btnProps.disabled },
         className
       )}
       {...btnProps}
