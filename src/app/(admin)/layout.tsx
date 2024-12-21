@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import Header from '@components/layout/Header'
-import MobileMenu from '@components/layout/MobileMenu'
-import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
+import { Inter } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
+import '../globals.css'
 
 export const metadata: Metadata = {
   title: 'NextShop',
@@ -17,20 +15,18 @@ const notoSans = Inter({
   variable: '--noto-sans',
 })
 
-export default function RootLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='ru'>
       <body className={`${notoSans.variable} antialiased`}>
         <SessionProvider>
-          <Header />
           <main className='mx-auto min-h-screen max-w-screen-sm px-4 pb-20 pt-[72px]'>
             {children}
           </main>
-          <MobileMenu />
         </SessionProvider>
         <Toaster />
       </body>

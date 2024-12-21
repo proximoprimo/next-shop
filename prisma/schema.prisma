@@ -17,6 +17,7 @@ model User {
   id          String  @id @default(uuid())
   email       String  @unique
   confirmCode String?
+  role        Role
 }
 
 model Product {
@@ -47,4 +48,9 @@ model Image {
   updatedAt DateTime @updatedAt
   Product   Product? @relation(fields: [productId], references: [id])
   productId String?
+}
+
+enum Role {
+  USER
+  ADMIN
 }

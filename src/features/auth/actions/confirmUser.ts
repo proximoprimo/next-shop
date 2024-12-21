@@ -1,7 +1,8 @@
 'use server'
 
+import { UserService } from '@/services/user.service'
 import { ActionResponse, ResponseStatus } from '@/types/next'
-import prisma from '@libs/prisma'
+import prismaClient from '@libs/prisma'
 import { User } from 'next-auth'
 
 const confirmUser = async (
@@ -11,13 +12,7 @@ const confirmUser = async (
   const email = formData.get('email') as string
   const code = formData.get('code') as string
 
-  const user = await prisma.user.findFirst({
-    where: {
-      email,
-    },
-  })
-
-  console.log(user?.confirmCode === code)
+  const user = await UserService.findByEmail(email)
 
   if (user && user.confirmCode === code) {
     return {

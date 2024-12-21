@@ -1,30 +1,27 @@
 'use server'
 import transport from '@/libs/nodemailer'
+import { UserService } from '@/services/user.service'
 import { ActionResponse, ResponseStatus } from '@/types/next'
-import prisma from '@libs/prisma'
+import prismaClient from '@libs/prisma'
 const authUser = async (
   prevData: ActionResponse,
   formData: FormData
 ): Promise<ActionResponse> => {
   const email = formData.get('email') as string
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  })
+  const user = await UserService.findByEmail(email)
 
   const code = Math.round(Math.random() * 1000000)
 
   if (user) {
-    await prisma.user.update({
+    await prismaClient.user.update({
       where: { id: user.id },
       data: {
         confirmCode: code.toString(),
       },
     })
   } else {
-    await prisma.user.create({
+    await prismaClient.user.create({
       data: {
         email,
         confirmCode: code.toString(),
