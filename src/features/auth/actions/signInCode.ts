@@ -1,6 +1,7 @@
 'use server'
 import { signIn } from '@/auth'
 import { ActionResponse, ResponseStatus } from '@/types/next'
+import { redirect } from 'next/navigation'
 
 const signInCode = async (
   prevData: ActionResponse,
@@ -12,10 +13,6 @@ const signInCode = async (
       code: formData.get('code'),
       redirect: false,
     })
-    return {
-      status: ResponseStatus.SUCCESS,
-      message: 'Вход выполнен',
-    }
   } catch (error) {
     console.log('ERROR52', error)
 
@@ -24,6 +21,8 @@ const signInCode = async (
       error: 'Неверный логин или пароль',
     }
   }
+
+  redirect('/')
 }
 
 export default signInCode

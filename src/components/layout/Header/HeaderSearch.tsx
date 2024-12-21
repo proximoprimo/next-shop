@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react'
 const HeaderSearch = () => {
   const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
-  const { status, data } = useSession()
+  const { status } = useSession()
 
   return (
     <div className='fixed left-1/2 top-4 z-20 grid w-11/12 -translate-x-1/2 grid-cols-[1fr,auto] gap-2'>

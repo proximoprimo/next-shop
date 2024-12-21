@@ -33,7 +33,7 @@ const CodePopup = ({ onClose }: AuthPopupProps) => {
   }, [state])
 
   return ReactDOM.createPortal(
-    <PopupWrapper bodyClassName='p-6'>
+    <PopupWrapper bodyClassName='p-6 w-min'>
       <Title className='mb-2 text-center'>Войти</Title>
       <form action={formAction}>
         <div className='bg-white'>
@@ -48,7 +48,7 @@ const CodePopup = ({ onClose }: AuthPopupProps) => {
             name='code'
             type='number'
             placeholder='123456'
-            className='w-56 rounded-md border-2 border-foreground px-2 py-1 outline-none transition focus:border-foregorund-dark'
+            className='w-56 mt-5 rounded-md border-2 border-foreground px-2 py-1 outline-none transition focus:border-foregorund-dark'
           />
         </div>
         <Button disabled={pending} className='mt-3 py-2'>

@@ -5,13 +5,15 @@ import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io'
 
 interface AddToFavoriteProps {
   className?: string
+  onAddToFavorite: () => void;
 }
 
-const AddToFavorite = ({ className }: AddToFavoriteProps) => {
+const AddToFavorite = ({ className, onAddToFavorite }: AddToFavoriteProps) => {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const handleClick = () => {
     setIsFavorite((prev) => !prev)
+    onAddToFavorite()
   }
 
   return (

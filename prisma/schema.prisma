@@ -14,22 +14,24 @@ datasource db {
 }
 
 model User {
-  id          String  @id @default(uuid())
-  email       String  @unique
+  id          String     @id @default(uuid())
+  email       String     @unique
   confirmCode String?
-  role        Role
+  role        Role       @default(USER)
+  favorite    Favorite[]
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   name        String
   description String
   price       Float
-  images      Image[]
+  images      File[]
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  CartItem  CartItem[]
+  cartItem  CartItem[]
+  favorite  Favorite[]
 }
 
 model CartItem {
@@ -39,15 +41,33 @@ model CartItem {
   productId String
 }
 
-model Image {
-  id   String @id @default(uuid())
-  url  String
-  name String
+model File {
+  id       String @id @default(uuid())
+  url      String
+  name     String
+  width    Int
+  height   Int
+  mimeType String
+  size     Int
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   Product   Product? @relation(fields: [productId], references: [id])
   productId String?
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  
+  createdAt DateTime @default(now())
+}
+
+enum FileType {
+  IMAGE
+  VIDEO
 }
 
 enum Role {

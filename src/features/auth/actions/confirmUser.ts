@@ -2,7 +2,6 @@
 
 import { UserService } from '@/services/user.service'
 import { ActionResponse, ResponseStatus } from '@/types/next'
-import prismaClient from '@libs/prisma'
 import { User } from 'next-auth'
 
 const confirmUser = async (
