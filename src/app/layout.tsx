@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@components/layout/Header'
 import MobileMenu from '@components/layout/MobileMenu'
+import { Toaster } from 'react-hot-toast'
+import { SessionProvider } from 'next-auth/react'
 
 export const metadata: Metadata = {
   title: 'NextShop',
@@ -23,9 +25,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${notoSans.variable} antialiased`}>
-        <Header />
-        <main className='px-4 pt-[72px] pb-20 max-w-screen-sm mx-auto min-h-screen'>{children}</main>
-        <MobileMenu />
+        <SessionProvider>
+          <Header />
+          <main className='mx-auto min-h-screen max-w-screen-sm px-4 pb-20 pt-[72px]'>
+            {children}
+          </main>
+          <MobileMenu />
+        </SessionProvider>
+        <Toaster />
       </body>
     </html>
   )

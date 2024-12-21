@@ -1,9 +1,11 @@
 import AuthPopup from '@/features/auth/popups/AuthPopup'
+import CodePopup from '@/features/auth/popups/CodePopup'
 import usePopup from '@/hooks/common/usePopup'
 import Button from '@components/common/Button'
 
 const SignInButton = () => {
   const { close, isOpen, open } = usePopup()
+  const { close: closeCode, isOpen: isCodeOpen, open: openCode } = usePopup()
 
   return (
     <>
@@ -13,7 +15,8 @@ const SignInButton = () => {
       >
         Войти
       </Button>
-      {isOpen && <AuthPopup onClose={close} />}
+      {isOpen && <AuthPopup onSuccess={openCode} onClose={close} />}
+      {isCodeOpen && <CodePopup onClose={closeCode} />}
     </>
   )
 }

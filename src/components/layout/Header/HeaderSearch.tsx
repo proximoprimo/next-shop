@@ -3,10 +3,12 @@ import { cn } from '@/utils/cn'
 import { useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
 import SignInButton from './SignInButton'
+import { useSession } from 'next-auth/react'
 
 const HeaderSearch = () => {
   const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
+  const { status, data } = useSession()
 
   return (
     <div className='fixed left-1/2 top-4 z-20 grid w-11/12 -translate-x-1/2 grid-cols-[1fr,auto] gap-2'>
@@ -29,7 +31,7 @@ const HeaderSearch = () => {
           })}
         />
       </div>
-      <SignInButton />
+      {status === 'unauthenticated' && <SignInButton />}
     </div>
   )
 }

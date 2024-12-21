@@ -1,11 +1,25 @@
+export enum ResponseStatus {
+  SUCCESS = 'success',
+  ERROR = 'error',
+  PENDING = 'pending',
+}
+
 export interface SuccessResponse<T = string> {
-  success: true
-  message: T
+  status: ResponseStatus.SUCCESS
+  message: string
+  data?: T
 }
 
 export interface ErrorResponse {
-  success: false
+  status: ResponseStatus.ERROR
   error: string
 }
 
-export type ActionResponse<T = string> = SuccessResponse<T> | ErrorResponse
+export interface PendingResponse {
+  status: ResponseStatus.PENDING
+}
+
+export type ActionResponse<T = Record<string, string>> =
+  | SuccessResponse<T>
+  | ErrorResponse
+  | PendingResponse

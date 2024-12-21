@@ -4,12 +4,17 @@ import { PropsWithChildren } from 'react'
 import { IoClose } from 'react-icons/io5'
 
 interface PopupWrapperProps extends PropsWithChildren {
-  onClose: () => void
+  onClose?: () => void
   className?: string
   bodyClassName?: string
 }
 
-const PopupWrapper = ({ onClose, className, children, bodyClassName }: PopupWrapperProps) => {
+const PopupWrapper = ({
+  onClose,
+  className,
+  children,
+  bodyClassName,
+}: PopupWrapperProps) => {
   const ref = useClickOutside(onClose)
 
   return (
@@ -19,7 +24,13 @@ const PopupWrapper = ({ onClose, className, children, bodyClassName }: PopupWrap
         className
       )}
     >
-      <div ref={ref} className={cn('relative bg-white p-4 text-black rounded', bodyClassName)}>
+      <div
+        ref={ref}
+        className={cn(
+          'relative rounded bg-white p-4 text-black',
+          bodyClassName
+        )}
+      >
         <div onClick={onClose} className='absolute right-2 top-2'>
           <IoClose />
         </div>
