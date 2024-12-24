@@ -4,22 +4,27 @@ import ProductCard from './ProductCard'
 import Slider from '@/components/common/Slider/Slider'
 import { SwiperSlide } from 'swiper/react'
 import { File, Product } from '@prisma/client'
+import { ProductService } from '@/services/product.service'
 
-interface ProductListProps {
+interface ProductSliderProps {
   title: string
-  products: (Product & { images: File[] })[]
+  products: Awaited<ReturnType<typeof ProductService.find>>
 }
 
-const ProductList = ({ title, products }: ProductListProps) => {
+const ProductSlider = ({ title, products }: ProductSliderProps) => {
   return (
     <div>
       <Title size='lg' important={true} className='py-2'>
         {title}
       </Title>
 
-      <Slider>
+      <Slider
+        swiperOptions={{
+          loop: true,
+        }}
+      >
         {products.map((product) => (
-          <SwiperSlide key={product.id}>
+          <SwiperSlide className='!h-40' key={product.id}>
             <ProductCard product={product} />
           </SwiperSlide>
         ))}
@@ -33,4 +38,4 @@ const ProductList = ({ title, products }: ProductListProps) => {
   )
 }
 
-export default ProductList
+export default ProductSlider

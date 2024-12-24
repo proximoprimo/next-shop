@@ -14,6 +14,8 @@ const confirmUser = async (
   const user = await UserService.findByEmail(email)
 
   if (user && user.confirmCode === code) {
+    await UserService.update(user.id, { confirmCode: null })
+
     return {
       status: ResponseStatus.SUCCESS,
       message: 'Пользователь успешно авторизован',

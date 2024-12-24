@@ -22,7 +22,7 @@ const Slider = ({ children, className, swiperOptions }: SliderProps) => {
         className='custom-slider'
         spaceBetween={15}
         centeredSlides={true}
-        initialSlide={2}
+        initialSlide={1}
         {...swiperOptions}
       >
         {children}

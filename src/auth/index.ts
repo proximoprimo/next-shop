@@ -1,5 +1,6 @@
 import confirmUser from '@/features/auth/actions/confirmUser'
 import { ResponseStatus } from '@/types/next'
+import jsonToFormData from '@/utils/jsonToFormData'
 import NextAuth, { DefaultSession, NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 export const AUTH_URL = '/api/auth'
@@ -17,12 +18,11 @@ const authOptions: NextAuthConfig = {
         code: { label: 'code', type: 'text', placeholder: '123456' },
       },
       async authorize(credentials) {
-        const formData = new FormData()
-        const email = credentials.email as string
-        const code = credentials.code as string
-        console.log(email, code)
-        formData.append('email', email)
-        formData.append('code', code)
+        const formData = jsonToFormData({
+          email: credentials.email as string,
+          code: credentials.code as string,
+        })
+
         const res = await confirmUser(
           { status: ResponseStatus.PENDING },
           formData
@@ -40,8 +40,7 @@ const authOptions: NextAuthConfig = {
   basePath: AUTH_URL,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    jwt({user, token}) {
-      // console.log('jwt', props)
+    jwt({ user, token }) {
       if (user) {
         token.id = user.id
       }

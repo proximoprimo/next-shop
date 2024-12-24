@@ -1,11 +1,13 @@
 import { auth } from '@/auth'
 import prismaClient from '@/libs/prisma'
+import { Prisma, Product } from '@prisma/client'
 
 export class ProductService {
-  static find() {
+  static find({ userId }: { userId?: string } = {}) {
     return prismaClient.product.findMany({
       include: {
         images: true,
+        ...(userId ? { favorite: { where: { userId } } } : {}),
       },
     })
   }

@@ -7,4 +7,11 @@ export class UserService {
       where: { email },
     })
   }
+
+  static update(id: string, data: Partial<User>): Promise<User> {
+    return prismaClient.user.update({
+      where: { id },
+      data,
+    })
+  }
 }

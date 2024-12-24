@@ -5,6 +5,7 @@ export interface MenuItem {
   icon: IconType
   text: string
   href: string
+  auth?: boolean
 }
 
 interface MobileMenuLinkProps {

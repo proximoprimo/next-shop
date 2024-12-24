@@ -1,25 +1,42 @@
+import { ProductService } from '@/services/product.service'
+import { cn } from '@/utils/cn'
 import Image from 'next/image'
+import { useTransition } from 'react'
 import AddToFavorite from './AddToFavorite'
-import { File, Product } from '@prisma/client'
-import { useActionState } from 'react'
 import addToFav from '../actions/addToFav'
 import { ResponseStatus } from '@/types/next'
-import { cn } from '@/utils/cn'
-import toast from 'react-hot-toast'
+import jsonToFormData from '@/utils/jsonToFormData'
 
 interface ProductCardProps {
-  product: Product & { images: File[] }
+  product: Awaited<ReturnType<typeof ProductService.find>>[number]
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [state, action, isPending] = useActionState(addToFav, {
-    status: ResponseStatus.PENDING,
-  })
+  const [isPending, startTransition] = useTransition()
+
+  // const [state, action, isPending] = useActionState(addToFav, {
+  //   status: ResponseStatus.PENDING,
+  // })
+
+  const submitAction = async () => {
+    startTransition(async () => {
+      const result = await addToFav(
+        {
+          status: ResponseStatus.PENDING,
+        },
+        jsonToFormData({
+          productId: product.id,
+        })
+      )
+    })
+  }
+
+  console.log('product', product)
 
   return (
-    <div className='grid h-full w-full grid-rows-[187px,max-content]'>
+    <div className='h-full w-full'>
       <Image
-        className='h-full w-full rounded object-cover'
+        className='h-full w-full rounded bg-white object-cover'
         src={product.images[0].url}
         width={product.images[0].width}
         height={product.images[0].height}
@@ -35,15 +52,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
             В корзину
           </button>
           <AddToFavorite
+            defaultIsFavorite={product.favorite.length > 0}
             className={cn('h-7 w-7 border text-base', {
               'pointer-events-none opacity-70': isPending,
             })}
-            onAddToFavorite={async () => {
-              const formData = new FormData()
-              formData.append('productId', product.id)
-              await addToFav({ status: ResponseStatus.PENDING }, formData)
-              toast.success('Товар добавлен в избранное')
-            }}
+            onAddToFavorite={submitAction}
           />
         </div>
       </div>

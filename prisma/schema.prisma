@@ -17,21 +17,26 @@ model User {
   id          String     @id @default(uuid())
   email       String     @unique
   confirmCode String?
+  name        String?
+  gender      Gender?
+  birthday    DateTime?
   role        Role       @default(USER)
   favorite    Favorite[]
 }
 
 model Product {
-  id          String @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   description String
   price       Float
   images      File[]
+  cartItem    CartItem[]
+  favorite    Favorite[]
+  category    Category?   @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  cartItem  CartItem[]
-  favorite  Favorite[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CartItem {
@@ -42,27 +47,42 @@ model CartItem {
 }
 
 model File {
-  id       String @id @default(uuid())
-  url      String
-  name     String
-  width    Int
-  height   Int
-  mimeType String
-  size     Int
+  id        String    @id @default(uuid())
+  url       String
+  name      String
+  width     Int
+  height    Int
+  mimeType  String
+  size      Int
+  product   Product?  @relation(fields: [productId], references: [id])
+  productId String?
+  category  Category?
 
   createdAt DateTime @default(now())
-  Product   Product? @relation(fields: [productId], references: [id])
-  productId String?
 }
 
 model Favorite {
-  id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id])
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
   userId    String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
-  
+
   createdAt DateTime @default(now())
+}
+
+model Category {
+  id              Int        @id @default(autoincrement())
+  name            String
+  image           File       @relation(fields: [fileId], references: [id])
+  products        Product[]
+  fileId          String     @unique
+  childCategories Category[] @relation(name: "CategoryToCategory")
+  category        Category?  @relation(name: "CategoryToCategory", fields: [categoryId], references: [id])
+  categoryId      Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum FileType {
@@ -73,4 +93,9 @@ enum FileType {
 enum Role {
   USER
   ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
