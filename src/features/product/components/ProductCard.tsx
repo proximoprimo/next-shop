@@ -1,38 +1,13 @@
 import { ProductService } from '@/services/product.service'
 import { cn } from '@/utils/cn'
 import Image from 'next/image'
-import { useTransition } from 'react'
 import AddToFavorite from './AddToFavorite'
-import addToFav from '../actions/addToFav'
-import { ResponseStatus } from '@/types/next'
-import jsonToFormData from '@/utils/jsonToFormData'
 
 interface ProductCardProps {
   product: Awaited<ReturnType<typeof ProductService.find>>[number]
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [isPending, startTransition] = useTransition()
-
-  // const [state, action, isPending] = useActionState(addToFav, {
-  //   status: ResponseStatus.PENDING,
-  // })
-
-  const submitAction = async () => {
-    startTransition(async () => {
-      const result = await addToFav(
-        {
-          status: ResponseStatus.PENDING,
-        },
-        jsonToFormData({
-          productId: product.id,
-        })
-      )
-    })
-  }
-
-  console.log('product', product)
-
   return (
     <div className='h-full w-full'>
       <Image
@@ -52,11 +27,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             В корзину
           </button>
           <AddToFavorite
-            defaultIsFavorite={product.favorite.length > 0}
-            className={cn('h-7 w-7 border text-base', {
-              'pointer-events-none opacity-70': isPending,
-            })}
-            onAddToFavorite={submitAction}
+            defaultIsFavorite={product?.favorite?.length > 0}
+            className={cn('h-7 w-7 border text-base')}
+            productId={product.id}
           />
         </div>
       </div>

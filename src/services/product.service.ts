@@ -1,6 +1,4 @@
-import { auth } from '@/auth'
 import prismaClient from '@/libs/prisma'
-import { Prisma, Product } from '@prisma/client'
 
 export class ProductService {
   static find({ userId }: { userId?: string } = {}) {

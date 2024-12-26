@@ -1,10 +1,9 @@
 'use client'
-import Title from '@components/common/Title'
-import ProductCard from './ProductCard'
 import Slider from '@/components/common/Slider/Slider'
-import { SwiperSlide } from 'swiper/react'
-import { File, Product } from '@prisma/client'
 import { ProductService } from '@/services/product.service'
+import Title from '@components/common/Title'
+import { SwiperSlide } from 'swiper/react'
+import ProductCard from './ProductCard'
 
 interface ProductSliderProps {
   title: string
