@@ -6,6 +6,9 @@ export class ProductService {
       include: {
         images: true,
         ...(userId ? { favorite: { where: { userId } } } : {}),
+        ...(userId
+          ? { cartItem: { where: { cart: { userId: userId } } } }
+          : {}),
       },
     })
   }

@@ -10,28 +10,24 @@ interface AddToFavoriteProps {
   productId: string
 }
 
-const AddToFavorite = ({
+const AddToFavoriteButton = ({
   defaultIsFavorite,
   className,
   productId,
 }: AddToFavoriteProps) => {
   const [isFavorite, setIsFavorite] = useState(() => defaultIsFavorite ?? false)
-  const favorite = useFavorite({ productId })
+  const favorite = useFavorite()
 
   const handleFavorite = async () => {
     if (isFavorite) {
       setIsFavorite(false)
-      favorite.remove({
-        onError: () => {
-          setIsFavorite(true)
-        },
+      favorite.remove(productId).catch(() => {
+        setIsFavorite(true)
       })
     } else {
       setIsFavorite(true)
-      favorite.add({
-        onError: () => {
-          setIsFavorite(false)
-        },
+      favorite.add(productId).catch(() => {
+        setIsFavorite(false)
       })
     }
   }
@@ -53,4 +49,4 @@ const AddToFavorite = ({
   )
 }
 
-export default AddToFavorite
+export default AddToFavoriteButton

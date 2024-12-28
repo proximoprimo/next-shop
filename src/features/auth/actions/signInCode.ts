@@ -4,7 +4,7 @@ import { ActionResponse, ResponseStatus } from '@/types/next'
 import { redirect } from 'next/navigation'
 
 const signInCode = async (
-  prevData: ActionResponse,
+  _: any,
   formData: FormData
 ): Promise<ActionResponse> => {
   try {
@@ -14,11 +14,9 @@ const signInCode = async (
       redirect: false,
     })
   } catch (error) {
-    console.log('ERROR52', error)
-
     return {
       status: ResponseStatus.ERROR,
-      error: 'Неверный логин или пароль',
+      message: 'Неверный логин или пароль',
     }
   }
 

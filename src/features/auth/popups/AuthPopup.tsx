@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom'
 import authUser from '../actions/requestCode'
 import toast from 'react-hot-toast'
 import { ActionResponse, ResponseStatus } from '@/types/next'
+import { cn } from '@/utils/cn'
 
 interface AuthPopupProps {
   onClose: () => void
@@ -16,20 +17,15 @@ interface AuthPopupProps {
 export interface AuthFormState {
   message: string
 }
-
-const initialState: ActionResponse = {
-  status: ResponseStatus.PENDING,
-}
-
 const AuthPopup = ({ onClose, onSuccess }: AuthPopupProps) => {
-  const [state, formAction, pending] = useActionState(authUser, initialState)
+  const [state, formAction, pending] = useActionState(authUser, null)
 
   useEffect(() => {
     console.log(state)
-    if (state.status === ResponseStatus.SUCCESS) {
+    if (state?.status === ResponseStatus.SUCCESS) {
       onClose()
       onSuccess()
-    } else if (state.status === ResponseStatus.ERROR) {
+    } else if (state?.status === ResponseStatus.ERROR) {
       toast.error('Что-то пошло не так')
     }
   }, [state])
@@ -50,11 +46,15 @@ const AuthPopup = ({ onClose, onSuccess }: AuthPopupProps) => {
           Получить код
         </Button>
 
-        {state.status === ResponseStatus.SUCCESS && (
-          <div className='text-green-300'>{state.message}</div>
-        )}
-        {state.status === ResponseStatus.ERROR && (
-          <div className='text-red-300'>{state.error}</div>
+        {state?.status && (
+          <div
+            className={cn({
+              'text-green-400': state.status === ResponseStatus.SUCCESS,
+              'text-red-400': state.status === ResponseStatus.ERROR,
+            })}
+          >
+            {state.message}
+          </div>
         )}
       </form>
     </PopupWrapper>,

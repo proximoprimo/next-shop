@@ -4,7 +4,7 @@ import { UserService } from '@/services/user.service'
 import { ActionResponse, ResponseStatus } from '@/types/next'
 import prismaClient from '@libs/prisma'
 const authUser = async (
-  prevData: ActionResponse,
+  _: any,
   formData: FormData
 ): Promise<ActionResponse> => {
   const email = formData.get('email') as string
@@ -38,7 +38,7 @@ const authUser = async (
   } catch (error) {
     return {
       status: ResponseStatus.ERROR,
-      error: 'Не удалось отправить email, попробуйте позже',
+      message: 'Не удалось отправить email, попробуйте позже',
     }
   }
 

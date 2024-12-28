@@ -10,11 +10,10 @@ const addToFav = async (data: {
   const session = await auth()
 
   if (!session) {
-    throw new Error('Вы не авторизованы')
-    // return {
-    //   status: ResponseStatus.ERROR,
-    //   error: 'Вы не авторизованы',
-    // }
+    return {
+      status: ResponseStatus.ERROR,
+      message: 'Вы не авторизованы',
+    }
   }
 
   await ProductService.addToFavorite({

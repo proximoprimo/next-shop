@@ -4,13 +4,13 @@ import toast from 'react-hot-toast'
 import removeFromFav from '../actions/removeFromFav'
 import { ResponseStatus } from '@/types/next'
 
-const useFavorite = ({ productId }: { productId: string }) => {
+const useFavorite = () => {
   const add = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (productId: string) => {
       const res = await addToFav({ productId })
 
       if (res.status === ResponseStatus.ERROR) {
-        throw new Error(res.error)
+        throw new Error(res.message)
       }
     },
     onSuccess: () => {
@@ -22,11 +22,11 @@ const useFavorite = ({ productId }: { productId: string }) => {
   })
 
   const remove = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (productId: string) => {
       const res = await removeFromFav({ productId })
 
       if (res.status === ResponseStatus.ERROR) {
-        throw new Error(res.error)
+        throw new Error(res.message)
       }
     },
     onSuccess: () => {
@@ -38,10 +38,8 @@ const useFavorite = ({ productId }: { productId: string }) => {
   })
 
   return {
-    add: (options?: MutateOptions<void, Error, void, unknown>) =>
-      add.mutateAsync(undefined, options),
-    remove: (options?: MutateOptions<void, Error, void, unknown>) =>
-      remove.mutateAsync(undefined, options),
+    add: add.mutateAsync,
+    remove: remove.mutateAsync,
     isPending: add.isPending || remove.isPending,
   }
 }

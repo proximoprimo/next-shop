@@ -11,7 +11,7 @@ const removeFromFav = async (data: {
   if (!session) {
     return {
       status: ResponseStatus.ERROR,
-      error: 'Пользователь не авторизован',
+      message: 'Пользователь не авторизован',
     }
   }
 

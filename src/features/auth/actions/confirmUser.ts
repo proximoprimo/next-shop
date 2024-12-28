@@ -5,7 +5,7 @@ import { ActionResponse, ResponseStatus } from '@/types/next'
 import { User } from 'next-auth'
 
 const confirmUser = async (
-  prevData: ActionResponse<User>,
+  _: null,
   formData: FormData
 ): Promise<ActionResponse<User>> => {
   const email = formData.get('email') as string
@@ -25,7 +25,7 @@ const confirmUser = async (
 
   return {
     status: ResponseStatus.ERROR,
-    error: 'Неверный код',
+    message: 'Неверный код',
   }
 }
 

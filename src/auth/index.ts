@@ -23,10 +23,7 @@ const authOptions: NextAuthConfig = {
           code: credentials.code as string,
         })
 
-        const res = await confirmUser(
-          { status: ResponseStatus.PENDING },
-          formData
-        )
+        const res = await confirmUser(null, formData)
 
         if (res.status === ResponseStatus.SUCCESS) {
           console.log('res.data', res.data)

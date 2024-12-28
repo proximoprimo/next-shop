@@ -16,18 +16,13 @@ export interface AuthFormState {
   message: string
 }
 
-const initialState: ActionResponse = {
-  status: ResponseStatus.PENDING,
-}
-
 const CodePopup = ({ onClose }: AuthPopupProps) => {
-  const [state, formAction, pending] = useActionState(signInCode, initialState)
+  const [state, formAction, pending] = useActionState(signInCode, null)
 
   useEffect(() => {
-    console.log(state);
-    if (state.status === ResponseStatus.ERROR) {
-      toast.error(state.error)
-    } else if (state.status === ResponseStatus.SUCCESS) {
+    if (state?.status === ResponseStatus.ERROR) {
+      toast.error(state.message)
+    } else if (state?.status === ResponseStatus.SUCCESS) {
       onClose()
     }
   }, [state])
@@ -48,18 +43,18 @@ const CodePopup = ({ onClose }: AuthPopupProps) => {
             name='code'
             type='number'
             placeholder='123456'
-            className='w-56 mt-5 rounded-md border-2 border-foreground px-2 py-1 outline-none transition focus:border-foregorund-dark'
+            className='mt-5 w-56 rounded-md border-2 border-foreground px-2 py-1 outline-none transition focus:border-foregorund-dark'
           />
         </div>
         <Button disabled={pending} className='mt-3 py-2'>
           Войти
         </Button>
 
-        {state.status === ResponseStatus.SUCCESS && (
+        {state?.status === ResponseStatus.SUCCESS && (
           <div className='text-green-300'>{state.message}</div>
         )}
-        {state.status === ResponseStatus.ERROR && (
-          <div className='text-red-300'>{state.error}</div>
+        {state?.status === ResponseStatus.ERROR && (
+          <div className='text-red-300'>{state.message}</div>
         )}
       </form>
     </PopupWrapper>,

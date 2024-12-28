@@ -1,7 +1,8 @@
 import { ProductService } from '@/services/product.service'
 import { cn } from '@/utils/cn'
 import Image from 'next/image'
-import AddToFavorite from './AddToFavorite'
+import AddToFavoriteButton from './AddToFavoriteButton'
+import AddToCartButton from './AddToCartButton'
 
 interface ProductCardProps {
   product: Awaited<ReturnType<typeof ProductService.find>>[number]
@@ -23,10 +24,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </span>
         <div className='font-bold text-[#43A047]'>10 700₽</div>
         <div className='flex gap-1'>
-          <button className='w-full rounded bg-foreground p-1 text-sm font-medium text-white'>
-            В корзину
-          </button>
-          <AddToFavorite
+          <AddToCartButton quantity={product.cartItem?.[0]?.quantity} productId={product.id} />
+          <AddToFavoriteButton
             defaultIsFavorite={product?.favorite?.length > 0}
             className={cn('h-7 w-7 border text-base')}
             productId={product.id}

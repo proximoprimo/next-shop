@@ -76,6 +76,18 @@ async function main() {
 
   const products: Prisma.ProductCreateInput[] = [
     {
+      name: 'Кроссовки Nike Air Force 1',
+      price: 12990,
+      description: `Кроссовки Nike Air Force 1 - это стильные и удобные кроссовки, идеально подходящие для повседневной носки и занятий спортом.`,
+      images: {
+        create: [
+          await FileHelper.getInfo('seed/nike_air_force_1_1.png'),
+          await FileHelper.getInfo('seed/nike_air_force_1_2.png'),
+        ],
+      },
+      category: { connect: { id: subCategory.id } },
+    },
+    {
       name: 'Кроссовки Nike Air Max 270',
       price: 10700,
       description: `Стильные и удобные кроссовки Nike Air Max 270, идеально подходящие для повседневной носки и занятий спортом. Обеспечивают отличную амортизацию и комфорт благодаря технологии Air Max.`,
@@ -95,12 +107,13 @@ async function main() {
     },
     {
       name: 'Кроссовки Puma RS-X3',
-      description: 'Кроссовки Puma RS-X3 - это стильные и удобные кроссовки, идеально подходящие для повседневной носки и занятий спортом.',
+      description:
+        'Кроссовки Puma RS-X3 - это стильные и удобные кроссовки, идеально подходящие для повседневной носки и занятий спортом.',
       price: 8990,
       images: {
         create: [await FileHelper.getInfo('seed/puma_rs_x3.png')],
       },
-    }
+    },
   ]
 
   // создаем товары
