@@ -1,6 +1,6 @@
 import addToCart from '@/features/cart/actions/addToCart'
 import { ResponseStatus } from '@/types/next'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import removeFromCart from '../actions/removeFromCart'
 import { ServerError } from '@/libs/server'
